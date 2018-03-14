@@ -71,11 +71,28 @@
         <b-table class="mt-3 mx-3"
                  striped hover :items="TableValues" :fields="TableFields">
             <template slot="translatedstring" slot-scope="data">
-                {{data.item.translation.string}}
+                <div v-if="data.item.translation != null">
+                    {{data.item.translation.string}}
+                    <br />
+                    <b-button>
+                        more info (in progress)
+                    </b-button>
+                </div>
             </template>
-            <template slot="translatedstring" slot-scope="data">
-                {{data.item.translation.string}}
+            <template slot="suggestions" slot-scope="data">
+                <div v-if="data.item.suggestions.length > 0">
+                    <!--{{data.item.suggestions.length}}-->
+                    <b-button>
+                        see suggestions (in progress)
+                    </b-button>
+                </div>
             </template>
+            <template slot="TransifexLink" slot-scope="data">
+                <b-button>
+                    link (in progress)
+                </b-button>
+            </template>
+
         </b-table>
 
     </div>
@@ -106,7 +123,10 @@
                     { key: "string", label: "String" },
                     { key: "reviewed", label: "Reviewed" },
                     { key: "comment", label: "Comment" },
-                    { key: 'translatedstring', label: 'Translation' }
+                    { key: 'translatedstring', label: 'Translation' },
+                    { key: 'suggestions', label: 'Suggestions' },
+                    { key: 'TransifexLink', label: 'Transifex Link' }
+                    
                 ],
                 TableValues:[]
 
@@ -131,7 +151,6 @@
                     var v = this.onlyTranslationsFromUsers.trim().split("\n")
                     Parameters.onlyTranslationsFromUsers = v
                 }
-
                 console.debug(Parameters)
                 axios.post('https://traducir.netlify.com/api/home/query', Parameters)
                     .then(response => {
@@ -141,7 +160,6 @@
                     .catch(error => {
                         console.debug ( error.message)
                     })
-                console.debug("test boton")
             }
         }
     }
