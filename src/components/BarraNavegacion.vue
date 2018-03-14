@@ -1,6 +1,6 @@
 <template>
     <b-navbar toggleable="md" type="dark" variant="info">
-        <b-navbar-brand href="/">So en español translations. AKA Transifex Helper</b-navbar-brand>
+        <b-navbar-brand href="/">So en espa&ntilde;ol translations. AKA Transifex Helper</b-navbar-brand>
         <b-navbar-nav>
             <b-nav-item to="/">Search</b-nav-item>
             <!--
