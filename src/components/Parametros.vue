@@ -39,8 +39,7 @@
                                 <b-form-textarea id="textarea1"
                                                  v-model="onlyTranslationsFromUsers"
                                                  placeholder="Insert user names. one per row."
-                                                 :rows="3"
-                                                 >
+                                                 :rows="3">
                                 </b-form-textarea>
                             </b-col>
                         </b-row>
@@ -52,6 +51,7 @@
                                                  placeholder="Insert user names. one per row."
                                                  :rows="3">
                                 </b-form-textarea>
+                                
                             </b-col>
                         </b-row>
                         <b-row>
@@ -88,8 +88,8 @@
                 </div>
             </template>
             <template slot="TransifexLink" slot-scope="data">
-                <b-button>
-                    link (in progress)
+                <b-button :href="'https://www.transifex.com/stack-exchange/stack-overflow-es/translate/#es/english/'+data.item.id+'?key='+data.item.key.split('|')[0]" target="_blank">
+                    see it on transifex
                 </b-button>
             </template>
 
@@ -115,8 +115,8 @@
                 translationRegex: "",
                 isReviewed: null,
                 withNonReviewedSuggestions: null,
-                onlyTranslationsFromUsers: "",
-                onlySuggestionsFromUsers: "",
+                onlyTranslationsFromUsers: '',
+                onlySuggestionsFromUsers: '',
                 TableFields:
                 [
                     { key: "id", label: "Id" },
@@ -143,13 +143,13 @@
                 if (!(this.withNonReviewedSuggestions === null)) {
                     Parameters.withNonReviewedSuggestions = this.withNonReviewedSuggestions
                 }
-                if (this.onlySuggestionsFromUsers.trim().length > 0) {
+                if (this.onlyTranslationsFromUsers.trim().length > 0) {
                     var v = this.onlyTranslationsFromUsers.trim().split("\n")
                     Parameters.onlyTranslationsFromUsers = v
                 }
                 if (this.onlySuggestionsFromUsers.trim().length > 0) {
-                    var v = this.onlyTranslationsFromUsers.trim().split("\n")
-                    Parameters.onlyTranslationsFromUsers = v
+                    var v = this.onlySuggestionsFromUsers.trim().split("\n")
+                    Parameters.onlySuggestionsFromUsers = v
                 }
                 console.debug(Parameters)
                 axios.post('https://traducir.netlify.com/api/home/query', Parameters)
