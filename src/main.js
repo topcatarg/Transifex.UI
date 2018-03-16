@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'font-awesome/css/font-awesome.css'
 import router from './router/router.js'
+import VueTimers from 'vue-timers'
 
 router.beforeEach((to, from, next) => {
     if (!to.meta.private)
@@ -17,6 +18,7 @@ router.beforeEach((to, from, next) => {
 
 
 Vue.use(BootstrapVue);
+Vue.use(VueTimers);
 
 new Vue({
     el: '#app',

@@ -14,7 +14,7 @@
                         <b-row class="mb-1">
                             <b-col>Translated string</b-col>
                             <b-col>
-                                <b-form-input v-model="translationRegex"></b-form-input>
+                                <b-form-input v-model="translationRegex" ></b-form-input>
                             </b-col>
                         </b-row>
                         <b-row class="mb-1">
@@ -127,7 +127,7 @@
                     </b-card>
                     <div v-if="row.item.suggestions.length > 0">
                         <b-card title="Suggestion information"
-                                v-for="item in row.item.suggestions">
+                                v-for="item in row.item.suggestions" :key="item.suggestion">
                             <b-row class="mb-2">
                                 <b-col sm="3" class="text-sm-right"><b>Last Updated:</b></b-col>
                                 <b-col>{{item.lastUpdate}}</b-col>
@@ -187,6 +187,30 @@
 
                 }
             },
+            watch:
+            {
+                stringRegex() {
+                    this.LostFocusEvent()
+                },
+                translationRegex() {
+                    this.LostFocusEvent()
+                },
+                isReviewed() {
+                    this.LostFocusEvent()
+                },
+                withNonReviewedSuggestions() {
+                    this.LostFocusEvent()
+                },
+                onlyTranslationsFromUsers() {
+                    this.LostFocusEvent()
+                },
+                onlySuggestionsFromUsers() {
+                    this.LostFocusEvent()
+                }
+            },
+            timers: {
+                TimeUp: { time: 1000, autostart: false }
+            },
             methods: {
                 ClickSearch() {
                     this.searching = true
@@ -218,6 +242,17 @@
                             console.debug(error.message)
                             this.searching = false
                         })
+                },
+                LostFocusEvent() {
+                    this.$timer.stop('TimeUp')
+                    console.debug("Perdio el foco ")
+                    this.$timer.start('TimeUp')
+                    
+                },
+                TimeUp() {
+                    console.log('Times up, ejecutando consulta')
+                    this.ClickSearch()
+                    this.$timer.stop('TimeUp')
                 }
             }
         }
